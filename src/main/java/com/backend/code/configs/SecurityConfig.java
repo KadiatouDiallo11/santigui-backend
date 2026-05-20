@@ -25,6 +25,13 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/h2-console/**").permitAll() // ✅ Accès libre à H2
                 .requestMatchers("/api/auth/**").permitAll()
+                //Swagger
+                .requestMatchers(
+                		"/swagger-ui/**",
+                		"/swagger-ui.html",
+                		"/v3/api-docs/**"
+                		).permitAll()
+                	
                 .anyRequest().authenticated()
             );
 
