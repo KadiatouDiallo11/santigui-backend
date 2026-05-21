@@ -20,6 +20,7 @@ public class Utilisateur {
     private Long id;
     
     private String nom;
+    private String prenom;
     private String email;
     
     private String password;
@@ -50,6 +51,12 @@ public class Utilisateur {
 
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+	public String getPrenom() {
+		return prenom;
+	}
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
 	}
 
 	public String getEmail() {
