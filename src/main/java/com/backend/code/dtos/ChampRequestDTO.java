@@ -10,9 +10,11 @@ public class ChampRequestDTO {
 
     private String typeCulture;
 
+    private String coordonneesGps;
+
     private Long exploitantId;
 
-    private String coordonneesGps;
+    private Long villeId;
 
     public ChampRequestDTO() {
     }
@@ -29,12 +31,16 @@ public class ChampRequestDTO {
         return typeCulture;
     }
 
+    public String getCoordonneesGps() {
+        return coordonneesGps;
+    }
+
     public Long getExploitantId() {
         return exploitantId;
     }
 
-    public String getCoordonneesGps() {
-        return coordonneesGps;
+    public Long getVilleId() {
+        return villeId;
     }
 
     public void setNom(String nom) {
@@ -49,11 +55,15 @@ public class ChampRequestDTO {
         this.typeCulture = typeCulture;
     }
 
+    public void setCoordonneesGps(String coordonneesGps) {
+        this.coordonneesGps = coordonneesGps;
+    }
+
     public void setExploitantId(Long exploitantId) {
         this.exploitantId = exploitantId;
     }
 
-    public void setCoordonneesGps(String coordonneesGps) {
-        this.coordonneesGps = coordonneesGps;
+    public void setVilleId(Long villeId) {
+        this.villeId = villeId;
     }
 }

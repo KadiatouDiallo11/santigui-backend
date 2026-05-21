@@ -4,8 +4,10 @@ import com.backend.code.dtos.ChampRequestDTO;
 import com.backend.code.dtos.ChampResponseDTO;
 import com.backend.code.entity.tables.Champ;
 import com.backend.code.entity.tables.Exploitant;
+import com.backend.code.entity.tables.Ville;
 import com.backend.code.repository.ChampRepository;
 import com.backend.code.repository.ExploitantRepository;
+import com.backend.code.repository.VilleRepository;
 
 import org.springframework.stereotype.Service;
 
@@ -17,11 +19,15 @@ public class ChampServiceImpl implements ChampService {
 
     private final ChampRepository champRepository;
     private final ExploitantRepository exploitantRepository;
+    private final VilleRepository villeRepository;
 
     public ChampServiceImpl(ChampRepository champRepository,
-                            ExploitantRepository exploitantRepository) {
+                            ExploitantRepository exploitantRepository,
+                            VilleRepository villeRepository) {
+
         this.champRepository = champRepository;
         this.exploitantRepository = exploitantRepository;
+        this.villeRepository = villeRepository;
     }
 
     @Override
@@ -30,13 +36,18 @@ public class ChampServiceImpl implements ChampService {
         Exploitant exploitant = exploitantRepository.findById(dto.getExploitantId())
                 .orElseThrow(() -> new RuntimeException("Exploitant introuvable"));
 
+        Ville ville = villeRepository.findById(dto.getVilleId())
+                .orElseThrow(() -> new RuntimeException("Ville introuvable"));
+
         Champ champ = new Champ();
 
         champ.setNom(dto.getNom());
         champ.setSuperficie(dto.getSuperficie());
         champ.setTypeCulture(dto.getTypeCulture());
         champ.setCoordonneesGps(dto.getCoordonneesGps());
+
         champ.setExploitant(exploitant);
+        champ.setVille(ville);
 
         Champ saved = champRepository.save(champ);
 
@@ -70,11 +81,16 @@ public class ChampServiceImpl implements ChampService {
         Exploitant exploitant = exploitantRepository.findById(dto.getExploitantId())
                 .orElseThrow(() -> new RuntimeException("Exploitant introuvable"));
 
+        Ville ville = villeRepository.findById(dto.getVilleId())
+                .orElseThrow(() -> new RuntimeException("Ville introuvable"));
+
         champ.setNom(dto.getNom());
         champ.setSuperficie(dto.getSuperficie());
         champ.setTypeCulture(dto.getTypeCulture());
         champ.setCoordonneesGps(dto.getCoordonneesGps());
+
         champ.setExploitant(exploitant);
+        champ.setVille(ville);
 
         Champ updated = champRepository.save(champ);
 
@@ -94,9 +110,11 @@ public class ChampServiceImpl implements ChampService {
                 champ.getNom(),
                 champ.getSuperficie(),
                 champ.getTypeCulture(),
+                champ.getCoordonneesGps(),
                 champ.getExploitant().getId(),
                 champ.getExploitant().getNom(),
-                champ.getCoordonneesGps()
+                champ.getVille().getId(),
+                champ.getVille().getNomVille()
         );
     }
 }

@@ -11,6 +11,7 @@ public class Champ {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // 🔥 Nom du champ
     private String nom;
 
     // 🔥 Surface en hectares
@@ -19,12 +20,18 @@ public class Champ {
     // 🔥 Culture principale
     private String typeCulture;
 
-    // 🔥 Coordonnées GPS (optionnel)
+    // 🔥 Coordonnées GPS
     private String coordonneesGps;
 
+    // 🔥 Exploitant responsable
     @ManyToOne
     @JoinColumn(name = "exploitant_id")
     private Exploitant exploitant;
+
+    // 🔥 Ville de rattachement
+    @ManyToOne
+    @JoinColumn(name = "ville_id")
+    private Ville ville;
 
     public Champ() {
     }
@@ -55,6 +62,10 @@ public class Champ {
         return exploitant;
     }
 
+    public Ville getVille() {
+        return ville;
+    }
+
     // ================= SETTERS =================
 
     public void setId(Long id) {
@@ -79,5 +90,9 @@ public class Champ {
 
     public void setExploitant(Exploitant exploitant) {
         this.exploitant = exploitant;
+    }
+
+    public void setVille(Ville ville) {
+        this.ville = ville;
     }
 }

@@ -12,11 +12,15 @@ public class ChampResponseDTO {
 
     private String typeCulture;
 
+    private String coordonneesGps;
+
     private Long exploitantId;
 
     private String nomExploitant;
 
-    private String coordonneesGps;
+    private Long villeId;
+
+    private String nomVille;
 
     public ChampResponseDTO() {
     }
@@ -25,17 +29,21 @@ public class ChampResponseDTO {
                             String nom,
                             BigDecimal superficie,
                             String typeCulture,
+                            String coordonneesGps,
                             Long exploitantId,
                             String nomExploitant,
-                            String coordonneesGps) {
+                            Long villeId,
+                            String nomVille) {
 
         this.id = id;
         this.nom = nom;
         this.superficie = superficie;
         this.typeCulture = typeCulture;
+        this.coordonneesGps = coordonneesGps;
         this.exploitantId = exploitantId;
         this.nomExploitant = nomExploitant;
-        this.coordonneesGps = coordonneesGps;
+        this.villeId = villeId;
+        this.nomVille = nomVille;
     }
 
     public Long getId() {
@@ -54,6 +62,10 @@ public class ChampResponseDTO {
         return typeCulture;
     }
 
+    public String getCoordonneesGps() {
+        return coordonneesGps;
+    }
+
     public Long getExploitantId() {
         return exploitantId;
     }
@@ -62,35 +74,11 @@ public class ChampResponseDTO {
         return nomExploitant;
     }
 
-    public String getCoordonneesGps() {
-        return coordonneesGps;
+    public Long getVilleId() {
+        return villeId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public void setSuperficie(BigDecimal superficie) {
-        this.superficie = superficie;
-    }
-
-    public void setTypeCulture(String typeCulture) {
-        this.typeCulture = typeCulture;
-    }
-
-    public void setExploitantId(Long exploitantId) {
-        this.exploitantId = exploitantId;
-    }
-
-    public void setNomExploitant(String nomExploitant) {
-        this.nomExploitant = nomExploitant;
-    }
-
-    public void setCoordonneesGps(String coordonneesGps) {
-        this.coordonneesGps = coordonneesGps;
+    public String getNomVille() {
+        return nomVille;
     }
 }
