@@ -2,6 +2,8 @@ package com.backend.code.entity.tables;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 public class Champ {
 
@@ -9,14 +11,32 @@ public class Champ {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // 🔥 Nom du champ
     private String nom;
 
+    // 🔥 Surface en hectares
+    private BigDecimal superficie;
+
+    // 🔥 Culture principale
+    private String typeCulture;
+
+    // 🔥 Coordonnées GPS
+    private String coordonneesGps;
+
+    // 🔥 Exploitant responsable
     @ManyToOne
     @JoinColumn(name = "exploitant_id")
     private Exploitant exploitant;
 
+    // 🔥 Ville de rattachement
+    @ManyToOne
+    @JoinColumn(name = "ville_id")
+    private Ville ville;
+
     public Champ() {
     }
+
+    // ================= GETTERS =================
 
     public Long getId() {
         return id;
@@ -26,15 +46,53 @@ public class Champ {
         return nom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public BigDecimal getSuperficie() {
+        return superficie;
+    }
+
+    public String getTypeCulture() {
+        return typeCulture;
+    }
+
+    public String getCoordonneesGps() {
+        return coordonneesGps;
     }
 
     public Exploitant getExploitant() {
         return exploitant;
     }
 
+    public Ville getVille() {
+        return ville;
+    }
+
+    // ================= SETTERS =================
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setSuperficie(BigDecimal superficie) {
+        this.superficie = superficie;
+    }
+
+    public void setTypeCulture(String typeCulture) {
+        this.typeCulture = typeCulture;
+    }
+
+    public void setCoordonneesGps(String coordonneesGps) {
+        this.coordonneesGps = coordonneesGps;
+    }
+
     public void setExploitant(Exploitant exploitant) {
         this.exploitant = exploitant;
+    }
+
+    public void setVille(Ville ville) {
+        this.ville = ville;
     }
 }
