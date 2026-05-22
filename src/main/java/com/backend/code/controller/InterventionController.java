@@ -14,7 +14,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/interventions")
-@Tag(name = "Intervention", description = "API de gestion des interventions")
+@Tag(name = "Intervention",
+     description = "API de gestion des fiches d'intervention")
 public class InterventionController {
 
     private final InterventionService interventionService;
@@ -23,29 +24,30 @@ public class InterventionController {
         this.interventionService = interventionService;
     }
 
-    // CREATE
-    @Operation(summary = "Créer une intervention")
+    @Operation(summary = "Créer une fiche d'intervention")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public InterventionResponseDTO create(@RequestBody InterventionRequestDTO dto) {
+    public InterventionResponseDTO create(
+            @RequestBody InterventionRequestDTO dto) {
+
         return interventionService.create(dto);
     }
 
-    // GET ALL
     @Operation(summary = "Lister toutes les interventions")
     @GetMapping
     public List<InterventionResponseDTO> getAll() {
+
         return interventionService.getAll();
     }
 
-    // GET BY ID
     @Operation(summary = "Obtenir une intervention par ID")
     @GetMapping("/{id}")
-    public InterventionResponseDTO getById(@PathVariable Long id) {
+    public InterventionResponseDTO getById(
+            @PathVariable Long id) {
+
         return interventionService.getById(id);
     }
 
-    // UPDATE
     @Operation(summary = "Modifier une intervention")
     @PutMapping("/{id}")
     public InterventionResponseDTO update(
@@ -55,11 +57,11 @@ public class InterventionController {
         return interventionService.update(id, dto);
     }
 
-    //  DELETE
     @Operation(summary = "Supprimer une intervention")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
+
         interventionService.delete(id);
     }
 }
