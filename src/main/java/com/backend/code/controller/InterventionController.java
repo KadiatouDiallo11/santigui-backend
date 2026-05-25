@@ -43,7 +43,7 @@ public class InterventionController {
     @Operation(summary = "Obtenir une intervention par ID")
     @GetMapping("/{id}")
     public InterventionResponseDTO getById(
-            @PathVariable Long id) {
+            @PathVariable String id) {
 
         return interventionService.getById(id);
     }
@@ -51,7 +51,7 @@ public class InterventionController {
     @Operation(summary = "Modifier une intervention")
     @PutMapping("/{id}")
     public InterventionResponseDTO update(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestBody InterventionRequestDTO dto) {
 
         return interventionService.update(id, dto);
@@ -60,7 +60,7 @@ public class InterventionController {
     @Operation(summary = "Supprimer une intervention")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable String id) {
 
         interventionService.delete(id);
     }

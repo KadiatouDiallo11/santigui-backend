@@ -55,13 +55,13 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
-    public UtilisateurResponseDTO findById(Long id) {
+    public UtilisateurResponseDTO findById(String id) {
         return repo.findById(id).map(this::toDTO)
                 .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String id) {
         repo.deleteById(id);
     }
 
@@ -71,6 +71,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         dto.id = u.getId();
         dto.nom = u.getNom();
         dto.email = u.getEmail();
+        dto.actif = u.isActif();
 
         if (u instanceof Administrateur a) {
             dto.type = "ADMIN";
@@ -88,7 +89,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
-    public UtilisateurResponseDTO update(Long id, UtilisateurRequestDTO dto) {
+    public UtilisateurResponseDTO update(String id, UtilisateurRequestDTO dto) {
 
         Utilisateur existing = repo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
@@ -126,5 +127,31 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         }
 
         return toDTO(repo.save(existing));
+    }
+
+    @Override
+    public UtilisateurResponseDTO activerCompte(String id) {
+        Utilisateur user = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
+
+        if (user.isActif()) {
+            throw new RuntimeException("Le compte est déjà actif.");
+        }
+
+        user.setActif(true);
+        return toDTO(repo.save(user));
+    }
+
+    @Override
+    public UtilisateurResponseDTO desactiverCompte(String id) {
+        Utilisateur user = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
+
+        if (!user.isActif()) {
+            throw new RuntimeException("Le compte est déjà désactivé.");
+        }
+
+        user.setActif(false);
+        return toDTO(repo.save(user));
     }
 }

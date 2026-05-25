@@ -6,8 +6,8 @@ import jakarta.persistence.*;
 public class Ville {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     // 🔥 Nom de la ville
     private String nomVille;
@@ -20,7 +20,7 @@ public class Ville {
 
     // ================= GETTERS =================
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -34,7 +34,7 @@ public class Ville {
 
     // ================= SETTERS =================
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

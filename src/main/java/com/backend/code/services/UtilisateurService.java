@@ -11,9 +11,13 @@ public interface UtilisateurService {
 
     List<UtilisateurResponseDTO> findAll();
 
-    UtilisateurResponseDTO findById(Long id);
+    UtilisateurResponseDTO findById(String id);
 
-    void delete(Long id);
+    void delete(String id);
     
-    UtilisateurResponseDTO update(Long id, UtilisateurRequestDTO dto);
+    UtilisateurResponseDTO update(String id, UtilisateurRequestDTO dto);
+
+    UtilisateurResponseDTO activerCompte(String id);
+
+    UtilisateurResponseDTO desactiverCompte(String id);
 }

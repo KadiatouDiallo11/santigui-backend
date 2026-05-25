@@ -12,9 +12,9 @@ public class ChampRequestDTO {
 
     private String coordonneesGps;
 
-    private Long exploitantId;
+    private String exploitantId;
 
-    private Long villeId;
+    private String villeId;
 
     public ChampRequestDTO() {
     }
@@ -35,11 +35,11 @@ public class ChampRequestDTO {
         return coordonneesGps;
     }
 
-    public Long getExploitantId() {
+    public String getExploitantId() {
         return exploitantId;
     }
 
-    public Long getVilleId() {
+    public String getVilleId() {
         return villeId;
     }
 
@@ -59,11 +59,11 @@ public class ChampRequestDTO {
         this.coordonneesGps = coordonneesGps;
     }
 
-    public void setExploitantId(Long exploitantId) {
+    public void setExploitantId(String exploitantId) {
         this.exploitantId = exploitantId;
     }
 
-    public void setVilleId(Long villeId) {
+    public void setVilleId(String villeId) {
         this.villeId = villeId;
     }
 }

@@ -36,7 +36,7 @@ public class VilleService {
                 .collect(Collectors.toList());
     }
 
-    public VilleDTO getById(Long id) {
+    public VilleDTO getById(String id) {
 
         Ville ville = villeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Ville introuvable"));
@@ -44,7 +44,7 @@ public class VilleService {
         return mapToDTO(ville);
     }
 
-    public VilleDTO update(Long id, VilleDTO dto) {
+    public VilleDTO update(String id, VilleDTO dto) {
 
         Ville ville = villeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Ville introuvable"));
@@ -57,7 +57,7 @@ public class VilleService {
         return mapToDTO(updated);
     }
 
-    public void delete(Long id) {
+    public void delete(String id) {
         villeRepository.deleteById(id);
     }
 

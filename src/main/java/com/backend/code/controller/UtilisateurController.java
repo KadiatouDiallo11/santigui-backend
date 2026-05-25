@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -46,20 +47,32 @@ public class UtilisateurController {
 
     @Operation(summary = "Récupérer utilisateur par ID")
     @GetMapping("/{id}")
-    public UtilisateurResponseDTO getById(@PathVariable Long id) {
+    public UtilisateurResponseDTO getById(@PathVariable String id) {
         return service.findById(id);
     }
 
     @Operation(summary = "Supprimer un utilisateur")
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable String id) {
         service.delete(id);
     }
     
     @Operation(summary = "Modifier un utilisateur")
     @PutMapping("/{id}")
-    public UtilisateurResponseDTO update(@PathVariable Long id,
+    public UtilisateurResponseDTO update(@PathVariable String id,
                                          @RequestBody UtilisateurRequestDTO dto) {
         return service.update(id, dto);
+    }
+
+    @Operation(summary = "Activer un compte utilisateur")
+    @PatchMapping("/{id}/activer")
+    public UtilisateurResponseDTO activer(@PathVariable String id) {
+        return service.activerCompte(id);
+    }
+
+    @Operation(summary = "Désactiver un compte utilisateur")
+    @PatchMapping("/{id}/desactiver")
+    public UtilisateurResponseDTO desactiver(@PathVariable String id) {
+        return service.desactiverCompte(id);
     }
 }

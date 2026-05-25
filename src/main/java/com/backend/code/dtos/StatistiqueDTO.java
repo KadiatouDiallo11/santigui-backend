@@ -6,7 +6,7 @@ import com.backend.code.entity.enums.TypeIntervention;
 
 public class StatistiqueDTO {
 
-    private Long id;
+    private String id;
 
     private String periode;
 
@@ -19,7 +19,7 @@ public class StatistiqueDTO {
     public StatistiqueDTO() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -39,7 +39,7 @@ public class StatistiqueDTO {
         return dateCalcul;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

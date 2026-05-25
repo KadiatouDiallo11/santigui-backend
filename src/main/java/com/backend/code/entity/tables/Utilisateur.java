@@ -16,8 +16,8 @@ import jakarta.persistence.InheritanceType;
 @DiscriminatorColumn(name = "type_utilisateur", discriminatorType = DiscriminatorType.STRING)
 public class Utilisateur {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     
     private String nom;
     private String prenom;
@@ -25,14 +25,16 @@ public class Utilisateur {
     
     private String password;
 
+    private boolean actif = true;
+
 
     public Utilisateur() {}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -65,5 +67,13 @@ public class Utilisateur {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}    
+	}
+
+	public boolean isActif() {
+		return actif;
+	}
+
+	public void setActif(boolean actif) {
+		this.actif = actif;
+	}
 }

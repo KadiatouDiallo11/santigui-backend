@@ -2,20 +2,21 @@ package com.backend.code.dtos;
 
 public class UtilisateurResponseDTO {
 	
-	public Long id;
+	public String id;
     public String nom;
     public String prenom;
     public String email;
     public String type;
+    public boolean actif;
 
     public String niveau;
     public String numeroExploitation;
     public String telephone;
     public String adresse;
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getNom() {

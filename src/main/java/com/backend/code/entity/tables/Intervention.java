@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 public class Intervention {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     // 🔥 Champ concerné
     @ManyToOne
@@ -70,7 +70,7 @@ public class Intervention {
 
     // ================= GETTERS =================
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -120,7 +120,7 @@ public class Intervention {
 
     // ================= SETTERS =================
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

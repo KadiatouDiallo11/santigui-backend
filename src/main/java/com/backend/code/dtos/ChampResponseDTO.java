@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class ChampResponseDTO {
 
-    private Long id;
+    private String id;
 
     private String nom;
 
@@ -14,25 +14,25 @@ public class ChampResponseDTO {
 
     private String coordonneesGps;
 
-    private Long exploitantId;
+    private String exploitantId;
 
     private String nomExploitant;
 
-    private Long villeId;
+    private String villeId;
 
     private String nomVille;
 
     public ChampResponseDTO() {
     }
 
-    public ChampResponseDTO(Long id,
+    public ChampResponseDTO(String id,
                             String nom,
                             BigDecimal superficie,
                             String typeCulture,
                             String coordonneesGps,
-                            Long exploitantId,
+                            String exploitantId,
                             String nomExploitant,
-                            Long villeId,
+                            String villeId,
                             String nomVille) {
 
         this.id = id;
@@ -46,7 +46,7 @@ public class ChampResponseDTO {
         this.nomVille = nomVille;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -66,7 +66,7 @@ public class ChampResponseDTO {
         return coordonneesGps;
     }
 
-    public Long getExploitantId() {
+    public String getExploitantId() {
         return exploitantId;
     }
 
@@ -74,7 +74,7 @@ public class ChampResponseDTO {
         return nomExploitant;
     }
 
-    public Long getVilleId() {
+    public String getVilleId() {
         return villeId;
     }
 

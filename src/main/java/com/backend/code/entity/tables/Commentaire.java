@@ -19,8 +19,8 @@ import jakarta.persistence.Table;
 public class Commentaire {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     private String contenu;
     private LocalDate dateCommentaire = LocalDate.now();

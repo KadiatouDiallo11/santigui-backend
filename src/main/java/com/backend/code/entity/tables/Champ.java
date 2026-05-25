@@ -8,8 +8,8 @@ import java.math.BigDecimal;
 public class Champ {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     // 🔥 Nom du champ
     private String nom;
@@ -38,7 +38,7 @@ public class Champ {
 
     // ================= GETTERS =================
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -68,7 +68,7 @@ public class Champ {
 
     // ================= SETTERS =================
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

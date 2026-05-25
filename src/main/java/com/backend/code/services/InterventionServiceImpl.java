@@ -67,7 +67,7 @@ public class InterventionServiceImpl implements InterventionService {
     }
 
     @Override
-    public InterventionResponseDTO getById(Long id) {
+    public InterventionResponseDTO getById(String id) {
 
         Intervention intervention = interventionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Intervention introuvable"));
@@ -76,7 +76,7 @@ public class InterventionServiceImpl implements InterventionService {
     }
 
     @Override
-    public InterventionResponseDTO update(Long id, InterventionRequestDTO dto) {
+    public InterventionResponseDTO update(String id, InterventionRequestDTO dto) {
 
         Intervention intervention = interventionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Intervention introuvable"));
@@ -103,7 +103,7 @@ public class InterventionServiceImpl implements InterventionService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String id) {
 
         interventionRepository.deleteById(id);
     }

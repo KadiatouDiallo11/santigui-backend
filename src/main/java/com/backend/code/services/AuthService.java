@@ -29,7 +29,12 @@ public class AuthService {
 
         // 🔐 CHECK PASSWORD (IMPORTANT)
         if (!passwordEncoder.matches(dto.password, user.getPassword())) {
-            throw new RuntimeException("Wrong password");
+            throw new RuntimeException("Mot de passe incorrect.");
+        }
+
+        // 🚫 CHECK COMPTE ACTIF
+        if (!user.isActif()) {
+            throw new RuntimeException("Ce compte est désactivé. Veuillez contacter un administrateur.");
         }
 
         LoginResponseDTO res = new LoginResponseDTO();

@@ -40,14 +40,14 @@ public class ChampController {
 
     @Operation(summary = "Afficher un champ par ID")
     @GetMapping("/{id}")
-    public ChampResponseDTO getById(@PathVariable Long id) {
+    public ChampResponseDTO getById(@PathVariable String id) {
 
         return champService.getById(id);
     }
 
     @Operation(summary = "Modifier un champ")
     @PutMapping("/{id}")
-    public ChampResponseDTO update(@PathVariable Long id,
+    public ChampResponseDTO update(@PathVariable String id,
                                    @RequestBody ChampRequestDTO dto) {
 
         return champService.update(id, dto);
@@ -56,7 +56,7 @@ public class ChampController {
     @Operation(summary = "Supprimer un champ")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable String id) {
 
         champService.delete(id);
     }

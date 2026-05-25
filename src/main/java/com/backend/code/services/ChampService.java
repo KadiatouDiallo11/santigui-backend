@@ -11,9 +11,9 @@ public interface ChampService {
 
     List<ChampResponseDTO> getAll();
 
-    ChampResponseDTO getById(Long id);
+    ChampResponseDTO getById(String id);
 
-    ChampResponseDTO update(Long id, ChampRequestDTO dto);
+    ChampResponseDTO update(String id, ChampRequestDTO dto);
 
-    void delete(Long id);
+    void delete(String id);
 }

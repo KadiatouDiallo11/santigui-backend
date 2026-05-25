@@ -7,9 +7,9 @@ import com.backend.code.entity.enums.TypeIntervention;
 
 public class InterventionRequestDTO {
 
-    private Long champId;
+    private String champId;
 
-    private Long exploitantId;
+    private String exploitantId;
 
     private LocalDate dateIntervention;
 
@@ -28,11 +28,11 @@ public class InterventionRequestDTO {
     public InterventionRequestDTO() {
     }
 
-    public Long getChampId() {
+    public String getChampId() {
         return champId;
     }
 
-    public Long getExploitantId() {
+    public String getExploitantId() {
         return exploitantId;
     }
 
@@ -64,11 +64,11 @@ public class InterventionRequestDTO {
         return statut;
     }
 
-    public void setChampId(Long champId) {
+    public void setChampId(String champId) {
         this.champId = champId;
     }
 
-    public void setExploitantId(Long exploitantId) {
+    public void setExploitantId(String exploitantId) {
         this.exploitantId = exploitantId;
     }
 

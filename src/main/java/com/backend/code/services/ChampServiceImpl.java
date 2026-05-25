@@ -64,7 +64,7 @@ public class ChampServiceImpl implements ChampService {
     }
 
     @Override
-    public ChampResponseDTO getById(Long id) {
+    public ChampResponseDTO getById(String id) {
 
         Champ champ = champRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Champ introuvable"));
@@ -73,7 +73,7 @@ public class ChampServiceImpl implements ChampService {
     }
 
     @Override
-    public ChampResponseDTO update(Long id, ChampRequestDTO dto) {
+    public ChampResponseDTO update(String id, ChampRequestDTO dto) {
 
         Champ champ = champRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Champ introuvable"));
@@ -98,7 +98,7 @@ public class ChampServiceImpl implements ChampService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String id) {
 
         champRepository.deleteById(id);
     }

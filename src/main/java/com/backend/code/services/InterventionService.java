@@ -11,9 +11,9 @@ public interface InterventionService {
 
     List<InterventionResponseDTO> getAll();
 
-    InterventionResponseDTO getById(Long id);
+    InterventionResponseDTO getById(String id);
 
-    InterventionResponseDTO update(Long id, InterventionRequestDTO dto);
+    InterventionResponseDTO update(String id, InterventionRequestDTO dto);
 
-    void delete(Long id);
+    void delete(String id);
 }

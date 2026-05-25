@@ -47,14 +47,14 @@ public class VilleController {
     @ApiResponse(responseCode = "200", description = "Ville trouvée")
     @ApiResponse(responseCode = "404", description = "Ville introuvable")
     @GetMapping("/{id}")
-    public VilleDTO getById(@PathVariable Long id) {
+    public VilleDTO getById(@PathVariable String id) {
         return villeService.getById(id);
     }
 
     @Operation(summary = "Modifier une ville")
     @ApiResponse(responseCode = "200", description = "Ville mise à jour")
     @PutMapping("/{id}")
-    public VilleDTO update(@PathVariable Long id,
+    public VilleDTO update(@PathVariable String id,
                            @RequestBody VilleDTO dto) {
         return villeService.update(id, dto);
     }
@@ -62,7 +62,7 @@ public class VilleController {
     @Operation(summary = "Supprimer une ville")
     @ApiResponse(responseCode = "200", description = "Ville supprimée")
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable String id) {
         villeService.delete(id);
     }
 }
