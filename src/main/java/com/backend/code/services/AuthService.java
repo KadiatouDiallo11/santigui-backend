@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 
 import com.backend.code.dtos.LoginRequestDTO;
 import com.backend.code.dtos.LoginResponseDTO;
+import com.backend.code.dtos.UtilisateurResponseDTO;
 import com.backend.code.entity.tables.Administrateur;
+import com.backend.code.entity.tables.Exploitant;
 import com.backend.code.entity.tables.Utilisateur;
 import com.backend.code.repository.UtilisateurRepository;
 
@@ -41,7 +43,31 @@ public class AuthService {
         res.token = jwtService.generateToken(user);
         res.email = user.getEmail();
         res.type = (user instanceof Administrateur) ? "ADMIN" : "EXPLOITANT";
+        res.user = toDTO(user);
 
         return res;
+    }
+
+    private UtilisateurResponseDTO toDTO(Utilisateur user) {
+        UtilisateurResponseDTO dto = new UtilisateurResponseDTO();
+        dto.id = user.getId();
+        dto.nom = user.getNom();
+        dto.prenom = user.getPrenom();
+        dto.email = user.getEmail();
+        dto.actif = user.isActif();
+
+        if (user instanceof Administrateur admin) {
+            dto.type = "ADMIN";
+            dto.niveau = admin.getNiveau() != null ? admin.getNiveau().name() : null;
+        }
+
+        if (user instanceof Exploitant exploitant) {
+            dto.type = "EXPLOITANT";
+            dto.numeroExploitation = exploitant.getNumeroExploitation();
+            dto.telephone = exploitant.getTelephone();
+            dto.adresse = exploitant.getAdresse();
+        }
+
+        return dto;
     }
 }
