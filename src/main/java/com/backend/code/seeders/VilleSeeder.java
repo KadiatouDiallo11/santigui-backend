@@ -46,7 +46,10 @@ public class VilleSeeder implements CommandLineRunner {
             ville("Dijon",          "21000"),
             ville("Angers",         "49000"),
             ville("Nîmes",          "30000"),
-            ville("Villeurbanne",   "69100")
+            ville("Villeurbanne",   "69100"),
+            ville("Montauban",   "65300"),
+            ville("Toulouse",   "69600"),
+            ville("ville 3", "45900")
         );
 
         villeRepository.saveAll(villes);

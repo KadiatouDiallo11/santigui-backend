@@ -1,17 +1,38 @@
 package com.backend.code.dtos;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "Representation d'un utilisateur")
 public class UtilisateurResponseDTO {
 	
+	@Schema(description = "Identifiant unique de l'utilisateur", example = "user-123")
 	public String id;
+
+	@Schema(description = "Nom de famille", example = "Kouassi")
     public String nom;
+
+	@Schema(description = "Prenom", example = "Amani")
     public String prenom;
+
+	@Schema(description = "Adresse email", example = "explo@gmail.com")
     public String email;
+
+	@Schema(description = "Type d'utilisateur. Valeurs possibles: ADMIN, EXPLOITANT", example = "EXPLOITANT", allowableValues = {"ADMIN", "EXPLOITANT"})
     public String type;
+
+	@Schema(description = "Indique si le compte est actif", example = "true")
     public boolean actif;
 
+	@Schema(description = "Niveau administratif si le compte est un ADMIN. Valeurs possibles: SUPER_ADMIN, SECRETAIRE", example = "SUPER_ADMIN", allowableValues = {"SUPER_ADMIN", "SECRETAIRE"})
     public String niveau;
+
+	@Schema(description = "Numero d'exploitation si le compte est un EXPLOITANT", example = "EXP-2026-001")
     public String numeroExploitation;
+
+	@Schema(description = "Telephone de l'exploitant", example = "+2250700000000")
     public String telephone;
+
+	@Schema(description = "Adresse de l'exploitant", example = "Yamoussoukro, quartier Habitat")
     public String adresse;
 	public String getId() {
 		return id;
