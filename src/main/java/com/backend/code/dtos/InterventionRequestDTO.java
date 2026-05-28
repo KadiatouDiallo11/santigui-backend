@@ -5,24 +5,36 @@ import java.time.LocalDate;
 import com.backend.code.entity.enums.StatutIntervention;
 import com.backend.code.entity.enums.TypeIntervention;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "Payload de creation ou modification d'une intervention")
 public class InterventionRequestDTO {
 
+    @Schema(description = "Identifiant du champ concerne", example = "champ-123")
     private String champId;
 
+    @Schema(description = "Identifiant de l'exploitant responsable", example = "exp-123")
     private String exploitantId;
 
+    @Schema(description = "Date de l'intervention", example = "2026-05-28")
     private LocalDate dateIntervention;
 
+    @Schema(description = "Type d'intervention. Valeurs possibles: LABOUR, SEMIS, TRAITEMENT, IRRIGATION, RECOLTE, AUTRE", example = "TRAITEMENT", implementation = TypeIntervention.class)
     private TypeIntervention typeIntervention;
 
+    @Schema(description = "Nature precise de l'action realisee", example = "Traitement fongicide preventif")
     private String natureAction;
 
+    @Schema(description = "Produits utilises pendant l'intervention", example = "Bouillie bordelaise")
     private String produitsUtilises;
 
+    @Schema(description = "Duree de l'intervention en heures", example = "3")
     private Integer duree;
 
+    @Schema(description = "Observations complementaires", example = "Intervention realisee avant la pluie")
     private String observations;
 
+    @Schema(description = "Statut de l'intervention. Valeurs possibles: BROUILLON, SOUMISE, COMMENTEE", example = "SOUMISE", implementation = StatutIntervention.class)
     private StatutIntervention statut;
 
     public InterventionRequestDTO() {

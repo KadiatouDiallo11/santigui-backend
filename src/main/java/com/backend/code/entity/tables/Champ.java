@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
+import com.backend.code.entity.enums.TypeCulture;
+
 @Entity
 public class Champ {
 
@@ -18,7 +20,8 @@ public class Champ {
     private BigDecimal superficie;
 
     // 🔥 Culture principale
-    private String typeCulture;
+    @Enumerated(EnumType.STRING)
+    private TypeCulture typeCulture;
 
     // 🔥 Coordonnées GPS
     private String coordonneesGps;
@@ -50,7 +53,7 @@ public class Champ {
         return superficie;
     }
 
-    public String getTypeCulture() {
+    public TypeCulture getTypeCulture() {
         return typeCulture;
     }
 
@@ -80,7 +83,7 @@ public class Champ {
         this.superficie = superficie;
     }
 
-    public void setTypeCulture(String typeCulture) {
+    public void setTypeCulture(TypeCulture typeCulture) {
         this.typeCulture = typeCulture;
     }
 
