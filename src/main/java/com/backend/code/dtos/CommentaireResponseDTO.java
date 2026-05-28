@@ -1,42 +1,20 @@
 
-package com.backend.code.entity.tables;
+package com.backend.code.dtos;
 
 import java.time.LocalDateTime;
 
 import com.backend.code.entity.enums.TypeCommentaire;
 
-import jakarta.persistence.*;
+public class CommentaireResponseDTO {
 
-@Entity
-@Table(name = "commentaires")
-public class Commentaire {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-
-    @Column(nullable = false, length = 2000)
     private String contenu;
-
-    @Enumerated(EnumType.STRING)
     private TypeCommentaire typeCommentaire;
-
     private LocalDateTime datePublication;
+    private String interventionId;
+    private String redacteurNom;
 
-    @ManyToOne
-    @JoinColumn(name = "intervention_id")
-    private Intervention intervention;
-
-    @ManyToOne
-    @JoinColumn(name = "administrateur_id")
-    private Administrateur redacteur;
-
-    public Commentaire() {
-    }
-
-    @PrePersist
-    public void prePersist() {
-        this.datePublication = LocalDateTime.now();
+    public CommentaireResponseDTO() {
     }
 
     // ===== GETTERS =====
@@ -57,12 +35,12 @@ public class Commentaire {
         return datePublication;
     }
 
-    public Intervention getIntervention() {
-        return intervention;
+    public String getInterventionId() {
+        return interventionId;
     }
 
-    public Administrateur getRedacteur() {
-        return redacteur;
+    public String getRedacteurNom() {
+        return redacteurNom;
     }
 
     // ===== SETTERS =====
@@ -83,12 +61,11 @@ public class Commentaire {
         this.datePublication = datePublication;
     }
 
-    public void setIntervention(Intervention intervention) {
-        this.intervention = intervention;
+    public void setInterventionId(String interventionId) {
+        this.interventionId = interventionId;
     }
 
-    public void setRedacteur(Administrateur redacteur) {
-        this.redacteur = redacteur;
+    public void setRedacteurNom(String redacteurNom) {
+        this.redacteurNom = redacteurNom;
     }
 }
-
