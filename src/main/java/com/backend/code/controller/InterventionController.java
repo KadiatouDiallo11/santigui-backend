@@ -1,14 +1,16 @@
 package com.backend.code.controller;
 
-import com.backend.code.dtos.InterventionRequestDTO;
-import com.backend.code.dtos.InterventionResponseDTO;
-import com.backend.code.services.InterventionService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import com.backend.code.dtos.InterventionRequestDTO;
+import com.backend.code.dtos.InterventionResponseDTO;
+import com.backend.code.services.InterventionService;
 
 import java.util.List;
 
@@ -26,6 +28,7 @@ public class InterventionController {
 
     @Operation(summary = "Créer une fiche d'intervention")
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'EXPLOITANT')")
     @ResponseStatus(HttpStatus.CREATED)
     public InterventionResponseDTO create(
             @RequestBody InterventionRequestDTO dto) {
@@ -35,6 +38,7 @@ public class InterventionController {
 
     @Operation(summary = "Lister toutes les interventions")
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'EXPLOITANT')")
     public List<InterventionResponseDTO> getAll() {
 
         return interventionService.getAll();
@@ -42,6 +46,7 @@ public class InterventionController {
 
     @Operation(summary = "Obtenir une intervention par ID")
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EXPLOITANT')")
     public InterventionResponseDTO getById(
             @PathVariable String id) {
 
@@ -50,6 +55,7 @@ public class InterventionController {
 
     @Operation(summary = "Modifier une intervention")
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EXPLOITANT')")
     public InterventionResponseDTO update(
             @PathVariable String id,
             @RequestBody InterventionRequestDTO dto) {
@@ -59,6 +65,7 @@ public class InterventionController {
 
     @Operation(summary = "Supprimer une intervention")
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EXPLOITANT')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable String id) {
 

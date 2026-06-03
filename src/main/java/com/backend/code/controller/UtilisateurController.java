@@ -3,6 +3,7 @@ package com.backend.code.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -19,6 +20,7 @@ import com.backend.code.services.UtilisateurService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -35,30 +37,35 @@ public class UtilisateurController {
     @Operation(summary = "Créer un utilisateur")
     @ApiResponse(responseCode = "200", description = "Utilisateur créé avec succès")
     @PostMapping
+    @SecurityRequirements
     public UtilisateurResponseDTO create(@RequestBody UtilisateurRequestDTO dto) {
         return service.createUser(dto);
     }
 
     @Operation(summary = "Lister tous les utilisateurs")
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public List<UtilisateurResponseDTO> getAll() {
         return service.findAll();
     }
 
     @Operation(summary = "Récupérer utilisateur par ID")
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public UtilisateurResponseDTO getById(@PathVariable String id) {
         return service.findById(id);
     }
 
     @Operation(summary = "Supprimer un utilisateur")
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable String id) {
         service.delete(id);
     }
     
     @Operation(summary = "Modifier un utilisateur")
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public UtilisateurResponseDTO update(@PathVariable String id,
                                          @RequestBody UtilisateurRequestDTO dto) {
         return service.update(id, dto);
@@ -66,12 +73,14 @@ public class UtilisateurController {
 
     @Operation(summary = "Activer un compte utilisateur")
     @PatchMapping("/{id}/activer")
+    @PreAuthorize("hasRole('ADMIN')")
     public UtilisateurResponseDTO activer(@PathVariable String id) {
         return service.activerCompte(id);
     }
 
     @Operation(summary = "Désactiver un compte utilisateur")
     @PatchMapping("/{id}/desactiver")
+    @PreAuthorize("hasRole('ADMIN')")
     public UtilisateurResponseDTO desactiver(@PathVariable String id) {
         return service.desactiverCompte(id);
     }

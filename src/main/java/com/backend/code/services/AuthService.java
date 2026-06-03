@@ -11,6 +11,7 @@ import com.backend.code.entity.tables.Exploitant;
 import com.backend.code.entity.tables.Utilisateur;
 import com.backend.code.repository.UtilisateurRepository;
 
+
 @Service
 public class AuthService {
 

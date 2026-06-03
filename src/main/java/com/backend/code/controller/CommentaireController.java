@@ -4,6 +4,7 @@ package com.backend.code.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.backend.code.dtos.CommentaireRequestDTO;
@@ -31,6 +32,7 @@ public class CommentaireController {
 
     @Operation(summary = "Créer un commentaire")
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public CommentaireResponseDTO create(
             @RequestBody CommentaireRequestDTO dto) {
@@ -40,6 +42,7 @@ public class CommentaireController {
 
     @Operation(summary = "Lister les commentaires")
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'EXPLOITANT')")
     public List<CommentaireResponseDTO> getAll() {
 
         return commentaireService.getAll();
@@ -47,6 +50,7 @@ public class CommentaireController {
 
     @Operation(summary = "Obtenir un commentaire")
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EXPLOITANT')")
     public CommentaireResponseDTO getById(
             @PathVariable String id) {
 
@@ -55,6 +59,7 @@ public class CommentaireController {
 
     @Operation(summary = "Supprimer un commentaire")
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(
             @PathVariable String id) {

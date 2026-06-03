@@ -1,12 +1,14 @@
 package com.backend.code.controller;
 
-import com.backend.code.dtos.DashboardExploitantDTO;
-import com.backend.code.services.StatistiqueService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import com.backend.code.dtos.DashboardExploitantDTO;
+import com.backend.code.services.StatistiqueService;
 
 @RestController
 @RequestMapping("/api/statistiques")
@@ -22,6 +24,7 @@ public class StatistiqueController {
 
     @Operation(summary = "Dashboard exploitant")
     @GetMapping("/exploitant/{exploitantId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EXPLOITANT')")
     public DashboardExploitantDTO dashboardExploitant(
             @PathVariable Long exploitantId) {
 
