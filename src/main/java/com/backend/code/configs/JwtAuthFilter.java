@@ -18,6 +18,7 @@ import com.backend.code.entity.tables.Administrateur;
 import com.backend.code.entity.tables.Utilisateur;
 import com.backend.code.repository.UtilisateurRepository;
 import com.backend.code.services.JwtService;
+import com.backend.code.services.TokenBlacklistService;
 
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
@@ -31,14 +32,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private static final Logger log = LoggerFactory.getLogger(JwtAuthFilter.class);
 
     private final JwtService jwtService;
+    private final TokenBlacklistService tokenBlacklistService;
     private final UtilisateurRepository userRepo;
 
     
 
 
-	public JwtAuthFilter(JwtService jwtService, UtilisateurRepository userRepo) {
+    public JwtAuthFilter(JwtService jwtService, TokenBlacklistService tokenBlacklistService, UtilisateurRepository userRepo) {
 		super();
 		this.jwtService = jwtService;
+        this.tokenBlacklistService = tokenBlacklistService;
 		this.userRepo = userRepo;
 	}
 
@@ -55,6 +58,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         final String token = authHeader.substring(7);
+
+        if (tokenBlacklistService.isBlacklisted(token)) {
+            SecurityContextHolder.clearContext();
+            log.warn("Token JWT revoque pour {} {}", request.getMethod(), request.getRequestURI());
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         try {
             final String email = jwtService.extractUsername(token);

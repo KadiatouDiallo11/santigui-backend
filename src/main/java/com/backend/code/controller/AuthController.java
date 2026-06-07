@@ -1,5 +1,8 @@
 package com.backend.code.controller;
 
+import java.util.Map;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.backend.code.dtos.LoginRequestDTO;
@@ -24,5 +27,12 @@ public class AuthController {
     @SecurityRequirements
     public LoginResponseDTO login(@RequestBody LoginRequestDTO dto) {
         return service.login(dto);
+    }
+
+    @PostMapping("/logout")
+    @Operation(summary = "Déconnexion utilisateur")
+    @PreAuthorize("isAuthenticated()")
+    public Map<String, String> logout(@RequestHeader("Authorization") String authorizationHeader) {
+        return service.logout(authorizationHeader);
     }
 }

@@ -1,6 +1,9 @@
 package com.backend.code.services;
 
+import java.util.Map;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.backend.code.dtos.LoginRequestDTO;
@@ -17,11 +20,17 @@ public class AuthService {
 
     private final UtilisateurRepository repo;
     private final JwtService jwtService;
+    private final TokenBlacklistService tokenBlacklistService;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthService(UtilisateurRepository repo, JwtService jwtService, PasswordEncoder passwordEncoder) {
+    public AuthService(
+            UtilisateurRepository repo,
+            JwtService jwtService,
+            TokenBlacklistService tokenBlacklistService,
+            PasswordEncoder passwordEncoder) {
         this.repo = repo;
         this.jwtService = jwtService;
+        this.tokenBlacklistService = tokenBlacklistService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -47,6 +56,18 @@ public class AuthService {
         res.user = toDTO(user);
 
         return res;
+    }
+
+    public Map<String, String> logout(String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            throw new RuntimeException("Token de deconnexion invalide.");
+        }
+
+        String token = authorizationHeader.substring(7);
+        tokenBlacklistService.blacklist(token, jwtService.extractExpiration(token));
+        SecurityContextHolder.clearContext();
+
+        return Map.of("message", "Déconnexion effectuée avec succès.");
     }
 
     private UtilisateurResponseDTO toDTO(Utilisateur user) {

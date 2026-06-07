@@ -88,8 +88,8 @@ public class SecurityConfig {
                     // Login : public, c'est le point d'entree
                     .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
 
-                    // POST = creation d'un utilisateur -> public
-                    .requestMatchers(HttpMethod.POST, "/api/utilisateurs").permitAll()
+                    // POST = creation d'un utilisateur -> ADMIN seulement
+                    .requestMatchers(HttpMethod.POST, "/api/utilisateurs").hasRole("ADMIN")
                     // GET = liste des utilisateurs -> ADMIN seulement
                     .requestMatchers(HttpMethod.GET, "/api/utilisateurs").hasRole("ADMIN")
                     // GET = detail d'un utilisateur -> ADMIN seulement
@@ -102,6 +102,24 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.PATCH, "/api/utilisateurs/*/activer").hasRole("ADMIN")
                     // PATCH /desactiver = desactivation du compte -> ADMIN seulement
                     .requestMatchers(HttpMethod.PATCH, "/api/utilisateurs/*/desactiver").hasRole("ADMIN")
+
+                    // CRUD dedie des administrateurs -> ADMIN seulement
+                    .requestMatchers(HttpMethod.POST, "/api/administrateurs").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/api/administrateurs").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/api/administrateurs/*").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/api/administrateurs/*").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/api/administrateurs/*").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PATCH, "/api/administrateurs/*/activer").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PATCH, "/api/administrateurs/*/desactiver").hasRole("ADMIN")
+
+                    // CRUD dedie des exploitants -> ADMIN seulement
+                    .requestMatchers(HttpMethod.POST, "/api/exploitants").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/api/exploitants").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/api/exploitants/*").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/api/exploitants/*").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/api/exploitants/*").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PATCH, "/api/exploitants/*/activer").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PATCH, "/api/exploitants/*/desactiver").hasRole("ADMIN")
 
                     // POST = creation d'une ville -> ADMIN seulement
                     .requestMatchers(HttpMethod.POST, "/api/villes").hasRole("ADMIN")
@@ -166,7 +184,7 @@ public class SecurityConfig {
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOriginPatterns(List.of("*"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
 
