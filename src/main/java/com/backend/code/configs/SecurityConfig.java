@@ -163,8 +163,17 @@ public class SecurityConfig {
                     // GET = detail d'un commentaire -> ADMIN ou EXPLOITANT
                     .requestMatchers(HttpMethod.GET, "/api/commentaires/*").hasAnyRole("ADMIN", "EXPLOITANT")
 
+                    // GET = lecture des notifications -> ADMIN ou EXPLOITANT
+                    .requestMatchers(HttpMethod.GET, "/api/notifications/**").hasAnyRole("ADMIN", "EXPLOITANT")
+                    // PATCH = marquer lu -> ADMIN ou EXPLOITANT
+                    .requestMatchers(HttpMethod.PATCH, "/api/notifications/**").hasAnyRole("ADMIN", "EXPLOITANT")
+                    // DELETE = suppression des notifications -> ADMIN ou EXPLOITANT
+                    .requestMatchers(HttpMethod.DELETE, "/api/notifications/**").hasAnyRole("ADMIN", "EXPLOITANT")
+
                     // GET = dashboard exploitant -> ADMIN ou EXPLOITANT
                     .requestMatchers(HttpMethod.GET, "/api/statistiques/exploitant/*").hasAnyRole("ADMIN", "EXPLOITANT")
+                        // GET = dashboard administrateur -> ADMIN seulement
+                        .requestMatchers(HttpMethod.GET, "/api/statistiques/administrateurs/*").hasRole("ADMIN")
 
                     .anyRequest().authenticated()
             )

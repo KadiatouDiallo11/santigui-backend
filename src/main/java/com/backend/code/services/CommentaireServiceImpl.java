@@ -19,15 +19,18 @@ public class CommentaireServiceImpl implements CommentaireService {
     private final CommentaireRepository commentaireRepository;
     private final InterventionRepository interventionRepository;
     private final AdministrateurRepository administrateurRepository;
+        private final NotificationService notificationService;
 
     public CommentaireServiceImpl(
             CommentaireRepository commentaireRepository,
             InterventionRepository interventionRepository,
-            AdministrateurRepository administrateurRepository) {
+                        AdministrateurRepository administrateurRepository,
+                        NotificationService notificationService) {
 
         this.commentaireRepository = commentaireRepository;
         this.interventionRepository = interventionRepository;
         this.administrateurRepository = administrateurRepository;
+                this.notificationService = notificationService;
     }
 
     @Override
@@ -51,6 +54,8 @@ public class CommentaireServiceImpl implements CommentaireService {
         commentaire.setRedacteur(redacteur);
 
         Commentaire saved = commentaireRepository.save(commentaire);
+
+                notificationService.notifyExploitantForCommentaire(saved);
 
         return mapToDTO(saved);
     }

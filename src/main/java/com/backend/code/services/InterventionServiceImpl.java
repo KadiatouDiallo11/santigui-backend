@@ -10,6 +10,8 @@ import com.backend.code.repository.ExploitantRepository;
 import com.backend.code.repository.InterventionRepository;
 
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,15 +22,18 @@ public class InterventionServiceImpl implements InterventionService {
     private final InterventionRepository interventionRepository;
     private final ChampRepository champRepository;
     private final ExploitantRepository exploitantRepository;
+        private final NotificationService notificationService;
 
     public InterventionServiceImpl(
             InterventionRepository interventionRepository,
             ChampRepository champRepository,
-            ExploitantRepository exploitantRepository) {
+                        ExploitantRepository exploitantRepository,
+                        NotificationService notificationService) {
 
         this.interventionRepository = interventionRepository;
         this.champRepository = champRepository;
         this.exploitantRepository = exploitantRepository;
+                this.notificationService = notificationService;
     }
 
     @Override
@@ -53,6 +58,10 @@ public class InterventionServiceImpl implements InterventionService {
         intervention.setStatut(dto.getStatut());
 
         Intervention saved = interventionRepository.save(intervention);
+
+                if (isAuthenticatedExploitant()) {
+                        notificationService.notifyAdministrateursForInterventionSubmission(saved);
+                }
 
         return mapToDTO(saved);
     }
@@ -127,4 +136,15 @@ public class InterventionServiceImpl implements InterventionService {
                 intervention.getDateModification()
         );
     }
+
+        private boolean isAuthenticatedExploitant() {
+
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+                if (authentication == null) {
+                        return false;
+                }
+
+                return authentication.getPrincipal() instanceof Exploitant;
+        }
 }

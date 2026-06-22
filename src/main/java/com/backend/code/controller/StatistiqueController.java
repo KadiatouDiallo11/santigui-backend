@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import com.backend.code.dtos.DashboardAdministrateurDTO;
 import com.backend.code.dtos.DashboardExploitantDTO;
 import com.backend.code.services.StatistiqueService;
 
@@ -26,8 +27,17 @@ public class StatistiqueController {
     @GetMapping("/exploitant/{exploitantId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'EXPLOITANT')")
     public DashboardExploitantDTO dashboardExploitant(
-            @PathVariable Long exploitantId) {
+            @PathVariable String exploitantId) {
 
         return statistiqueService.getDashboardExploitant(exploitantId);
+    }
+
+    @Operation(summary = "Dashboard administrateur")
+    @GetMapping("/administrateurs/{adminId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DashboardAdministrateurDTO dashboardAdministrateur(
+            @PathVariable String adminId) {
+
+        return statistiqueService.getDashboardAdministrateur(adminId);
     }
 }
